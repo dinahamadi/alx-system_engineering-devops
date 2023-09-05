@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $(su root /etc/passwd)
+echo $(sudo /etc/passwd)
