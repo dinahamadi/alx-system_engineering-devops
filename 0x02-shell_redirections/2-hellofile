@@ -1,2 +1,3 @@
 #!/bin/bash
-echo sudo $(/etc/passwd)
+echo $(su root /etc/passwd)
+
