@@ -19,4 +19,4 @@ USERNAME=$3
 SSH_KEY_PATH=$4
 
 # Transfer the file using scp with strict host key checking disabled
-scp -i "$SSH_KEY_PATH" -o StrictHostKeyChecking=no "$FILE_PATH" "$USERNAME@$SERVER_IP:~/"
+scp -i "$SSH_KEY_PATH" -o StrictHostKeyChecking=no "$FILE_PATH" "$USERNAME@$SERVER_IP":~/
