@@ -8,7 +8,7 @@ usage() {
 }
 
 # Check for the correct number of parameters
-if [ "$#" -ne 4 ]; then
+if [ "$#" -lt 3 ]; then
     usage
 fi
 
