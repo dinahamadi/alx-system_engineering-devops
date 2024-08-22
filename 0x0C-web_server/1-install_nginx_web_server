@@ -4,6 +4,6 @@
 sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt-get -y install nginx
-echo "Hello World" > /tmp/tempfile.txt
+echo "Hello World!" > /tmp/tempfile.txt
 sudo mv /tmp/tempfile.txt /var/www/html/index.html
 sudo service nginx start
