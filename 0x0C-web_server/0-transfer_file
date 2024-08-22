@@ -10,13 +10,11 @@ usage() {
 # Check for the correct number of parameters
 if [ "$#" -lt 3 ]; then
     usage
-fi
-
-# Assign parameters to variables
-FILE_PATH=$1
-SERVER_IP=$2
-USERNAME=$3
-SSH_KEY_PATH=$4
-
+else
+    FILE_PATH=$1
+    SERVER_IP=$2
+    USERNAME=$3
+    SSH_KEY_PATH=$4
 # Transfer the file using scp with strict host key checking disabled
-scp -i "$SSH_KEY_PATH" -o StrictHostKeyChecking=no "$FILE_PATH" "$USERNAME@$SERVER_IP":~/
+    scp -i "$SSH_KEY_PATH" -o StrictHostKeyChecking=no "$FILE_PATH" "$USERNAME@$SERVER_IP":~/
+fi
