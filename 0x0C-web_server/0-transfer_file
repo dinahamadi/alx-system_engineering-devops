@@ -6,9 +6,9 @@ usage() {
     echo "Usage: $0 PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
     exit 1
 }
-
 # Check for the correct number of parameters
-if [ "$#" -lt 3 ]; then
+if [ "$#" -lt 3 ];
+then
     usage
 else
     FILE_PATH=$1
@@ -16,5 +16,5 @@ else
     USERNAME=$3
     SSH_KEY_PATH=$4
 # Transfer the file using scp with strict host key checking disabled
-    scp -i "$SSH_KEY_PATH" -o StrictHostKeyChecking=no "$FILE_PATH" "$USERNAME@$SERVER_IP":~/
+    scp -o StrictHostKeyChecking=no -i "$SSH_KEY_PATH" "$FILE_PATH" "$USERNAME@$SERVER_IP":~/
 fi
