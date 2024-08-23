@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# This bash script gets DNS information for a given domain and subdomain
+
+domain="$1"
+subdomain="$2"
+
+if [ -z "$subdomain" ]; then
+    for sd in www lb-01 web-01 web-02; do
+        dig +short "$sd.$domain" | awk -v subdomain="$sd" '{ if(NR==1) print "The subdomain", subdomain, "is an A record and points to", $1 }'
+    done
+else
+    dig +short "$subdomain.$domain" | awk -v subdomain="$subdomain" '{ if(NR==1) print "The subdomain", subdomain, "is an A record and points to", $1 }'
+fi
