@@ -4,10 +4,16 @@
 domain="$1"
 subdomain="$2"
 
+get_dns_info() {
+    local sd="$1"
+    dig +short "$sd.$domain" | awk -v subdomain="$sd" '{ if(NR==1) print "The subdomain", subdomain, "is an A record and points to", $1 }'
+}
+
 if [ -z "$subdomain" ]; then
     for sd in www lb-01 web-01 web-02; do
-        dig +short "$sd.$domain" | awk -v subdomain="$sd" '{ if(NR==1) print "The subdomain", subdomain, "is an A record and points to", $1 }'
+        get_dns_info "$sd"
     done
 else
-    dig +short "$subdomain.$domain" | awk -v subdomain="$subdomain" '{ if(NR==1) print "The subdomain", subdomain, "is an A record and points to", $1 }'
+    get_dns_info "$subdomain"
 fi
+
