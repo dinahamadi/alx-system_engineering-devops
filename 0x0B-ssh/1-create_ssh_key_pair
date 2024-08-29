@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# connecting to a server using a private key protected bay a paraphrase
+ssh -i ~/.ssh/school-b 4096 -p betty ubuntu@34.204.95.54 
