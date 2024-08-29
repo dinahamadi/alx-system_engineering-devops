@@ -3,10 +3,9 @@
 in hot article titles."""
 
 
-import requests
 from collections import defaultdict
-
 import re
+import requests
 
 
 def count_words(subreddit, word_list, hot_list=None, after=None):
