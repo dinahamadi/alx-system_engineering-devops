@@ -21,9 +21,13 @@ def number_of_subscribers(subreddit):
 
         if response.status_code == 404:
             return 0
-        results = response.json().get("data")
-        if results and results.get("subscribers") is not None:
-            return results.get("subscribers")
+        if response.status_code == 200:
+            try:
+                data = response.json().get("data")
+                if data and data.get("subscribers") is not None:
+                    return data["subscribers"]
+            except ValueError:
+                return 0
         return 0
     except requests.exceptions.RequestException:
         return 0
