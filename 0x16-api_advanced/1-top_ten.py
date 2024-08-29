@@ -1,14 +1,17 @@
 #!/usr/bin/python3
-"""Queries the Reddit API and prints the titles of the top 10 hot posts for a given subreddit."""
+"""Queries the Reddit API and prints the titles of the top
+10 hot posts for a given subreddit
+"""
 
 import requests
 
+
 def top_ten(subreddit):
-    """Queries the Reddit API and prints the titles of the top 10 hot posts for a given subreddit.
-    If the subreddit is invalid, prints None.
+    """Queries the Reddit API for the top 10 posts
+    for a given subreddit If the subreddit is invalid, prints None.
     """
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    headers={"User-Agent": "My-User-Agent"}
+    headers = {"User-Agent": "My-User-Agent"}
 
     try:
         response = requests.get(url, headers=headers, allow_redirects=False)
