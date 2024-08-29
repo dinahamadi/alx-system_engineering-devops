@@ -9,7 +9,8 @@ def number_of_subscribers(subreddit):
     """
     Queries the Reddit API and returns the number of
     subscribers for a given subreddit.
-    If the subreddit is invalid, returns 0.
+    If the subreddit is invalid or if there's an error,
+    returns 0.
     """
     url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
     headers = {
@@ -18,9 +19,9 @@ def number_of_subscribers(subreddit):
 
     try:
         response = requests.get(url, headers=headers, allow_redirects=False)
-
         if response.status_code == 404:
             return 0
+
         if response.status_code == 200:
             try:
                 data = response.json().get("data")
