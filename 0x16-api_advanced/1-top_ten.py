@@ -8,15 +8,27 @@ import requests
 
 def top_ten(subreddit):
     """Queries the Reddit API for the top 10 posts
-    for a given subreddit If the subreddit is invalid, prints None.
+    for a given subreddit. If the subreddit is invalid,
+    prints None.
     """
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     headers = {"User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"}
-    response = requests.get(url, headers=headers, allow_redirects=False)
-    if response.status_code == 404:
-        print("None")
-    data = response.json()
-    posts = data.get("data", {}).get("children", [])
-    if posts:
-        for post in posts[:10]:
-            print(post.get("data", {}).get("title"))
+    try:
+        response = requests.get(url, headers=headers, allow_redirects=False)
+        if response.status_code == 404:
+            print(None)
+        elif response.status_code == 200:
+            try:
+                data = response.json()
+                posts = data.get('data', {}).get('children', [])
+                if posts:
+                    for post in posts[:10]:
+                        print(post.get('data', {}).get('title'))
+                else:
+                    print(None)
+            except ValueError:
+                print(None)
+        else:
+            print(None)
+    except requests.exceptions.RequestException:
+        print(None)
