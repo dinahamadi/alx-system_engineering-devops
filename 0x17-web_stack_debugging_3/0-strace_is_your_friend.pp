@@ -1,31 +1,17 @@
-# Ensure the WordPress configuration file is present and has the correct permissions
+# fix_wordpress.pp
+# This Puppet manifest fixes the 'phpp' to 'php' issue in the WordPress wp-settings.php file.
 
-file { '/var/www/html/wp-config.php':
-  ensure  => 'file',
-  source  => 'puppet:///modules/wordpress/wp-config.php',
-  owner   => 'www-data',
-  group   => 'www-data',
-  mode    => '0644',
+# Execute the sed command to replace 'phpp' with 'php' in the wp-settings.php file
+exec { 'fix-wordpress':
+  command => 'sed -i s/phpp/php/g /var/www/html/wp-settings.php',
+  path    => ['/usr/local/bin', '/bin'],
+  onlyif  => 'grep -q phpp /var/www/html/wp-settings.php',
+  notify  => Exec['restart-apache'],
 }
 
-# Ensure the necessary directories have the correct permissions
-file { '/var/www/html/wp-content':
-  ensure  => 'directory',
-  owner   => 'www-data',
-  group   => 'www-data',
-  mode    => '0755',
-}
-
-file { '/var/www/html/wp-content/uploads':
-  ensure  => 'directory',
-  owner   => 'www-data',
-  group   => 'www-data',
-  mode    => '0755',
-}
-
-# Restart Apache service to apply changes
-exec { 'restart_apache':
-  command     => '/usr/sbin/apache2ctl restart',
+# Restart Apache if the file is changed
+exec { 'restart-apache':
+  command     => '/usr/sbin/service apache2 restart',
+  path        => ['/usr/local/bin', '/bin'],
   refreshonly => true,
-  subscribe   => File['/var/www/html/wp-config.php'],
 }
