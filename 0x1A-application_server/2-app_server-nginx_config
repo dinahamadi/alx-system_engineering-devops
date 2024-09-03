@@ -3,11 +3,9 @@
 server {
     listen 80;
     listen [::]:80 default_server;
+    server_name 34.204.95.54;
 
-    # Set server_name to match any domain or IP
-    server_name _;
-
-    # Add custom header
+    # custom header
     add_header X-Served-By 520704-web-01;
 
     # Proxy configuration for the /airbnb-onepage route
