@@ -1,8 +1,7 @@
 # configure Nginx to serve page from the route /airbnb-onepage/number_odd_or_even/
-
 server {
-    listen 80;
-    listen [::]:80;
+    listen 80 default_server;
+    listen [::]:80 default_server;
     server_name 34.204.95.54;
 
     # custom header
@@ -10,8 +9,11 @@ server {
 
     # Proxy configuration for the /airbnb-onepage route
     location /airbnb-onepage/ {
-        proxy_pass http://127.0.0.1:5000/airbnb-onepage;
+        proxy_pass http://127.0.0.1:5000;
+        rewrite ^/airbnb-onepage/(.*)$ /airbnb-onepage/$1 break;
     }
+
+    # Proxy configuration for the /airbnb-dynamic/number_odd_or_even route
     location ~ /airbnb-dynamic/number_odd_or_even/(\d+)$ {
         proxy_pass http://127.0.0.1:5001/number_odd_or_even/$1;
     }
